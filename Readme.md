@@ -17,3 +17,9 @@ var realPath = lookup('path/to/my/config.js', 'dependency/path');
 
 * `configPath`: the path to your RequireJS configuration file
 * `dependencyPath`: the (potentially aliased) dependency that you want to lookup
+
+### Shell usage
+
+*Assumes a global `-g` installation*
+
+`lookup-amd -c path/to/my/config.js my/dependency/name`
