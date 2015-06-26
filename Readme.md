@@ -1,6 +1,10 @@
-### module-lookup-amd
+### module-lookup-amd [![npm](http://img.shields.io/npm/v/module-lookup-amd.svg)](https://npmjs.org/package/module-lookup-amd) [![npm](http://img.shields.io/npm/dm/module-lookup-amd.svg)](https://npmjs.org/package/module-lookup-amd)
 
-Gives you the real path of (possibly) aliased modules. Otherwise, gives you back the same dependency name if it's not aliased.
+This module basically exposes the requirejs config map and path resolution logic
+and gives you back the real, absolute, path of (possibly) aliased modules names.
+
+I built this for [Dependents'](https://sublime.wbond.net/packages/Dependents) [jump to dependency](https://github.com/mrjoelkemp/Dependents#jump-to-a-dependency) feature that lets you click on a module name
+and open the file that name resolves to.
 
 `npm install module-lookup-amd`
 
