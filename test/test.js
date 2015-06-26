@@ -34,4 +34,8 @@ describe('lookup', function() {
   it('supports relative pathing', function() {
     assert.equal(lookup(configPath, 'hgn!./templates/_icons/_embed', filename), path.join(dir, '../templates/poet/_icons/_embed'));
   });
+
+  it('returns the same dependency if not aliased', function() {
+    assert.equal(lookup(configPath, 'my/sweet/path', filename), path.join(dir, 'my/sweet/path'));
+  });
 });
