@@ -1,7 +1,10 @@
 var assert = require('assert');
 var path = require('path');
 var ConfigFile = require('requirejs-config-file').ConfigFile;
-var lookup = require('../');
+var rewire = require('rewire');
+var sinon = require('sinon');
+
+var lookup = rewire('../');
 
 var dir = '/path/from/my/machine/js';
 var filename = dir + '/poet/Remote.js';
@@ -45,6 +48,33 @@ describe('lookup', function() {
 
     assert.doesNotThrow(function() {
       lookup(configObject, 'foobar', filename);
+    });
+  });
+
+  describe('when no baseUrl is in the config', function() {
+    it('defaults the baseUrl to the directory of the config file', function() {
+      var stub = sinon.stub().returns('');
+      lookup.__set__('normalize', stub);
+
+      sinon.stub(lookup, '_readConfig').returns({baseUrl: undefined});
+
+      lookup(configPath, 'foobar', filename);
+
+      // Add the slash since we normalize the slash during the lookup
+      assert.equal(stub.args[0][2].baseUrl, path.dirname(configPath) + '/');
+    });
+
+    it('defaults to ./ if the config was a reused object', function() {
+      var configObject = new ConfigFile(configPath).read();
+      delete configObject.baseUrl;
+
+      var stub = sinon.stub().returns('');
+
+      lookup.__set__('normalize', stub);
+
+      lookup(configObject, 'foobar', filename);
+
+      assert.equal(stub.args[0][2].baseUrl, './');
     });
   });
 });

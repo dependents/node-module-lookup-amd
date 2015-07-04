@@ -17,11 +17,11 @@ module.exports = function(config, depPath, filepath) {
 
   if (typeof config === 'string') {
     configPath = path.dirname(config);
-    config = new ConfigFile(config).read();
+    config = module.exports._readConfig(config);
   }
 
   if (!config.baseUrl) {
-    config.baseUrl = './';
+    config.baseUrl = configPath || './';
   }
 
   if (config.baseUrl[config.baseUrl.length - 1] !== '/') {
@@ -41,4 +41,15 @@ module.exports = function(config, depPath, filepath) {
   normalized = path.join(filepathWithoutBase, normalized);
 
   return normalized;
+};
+
+/**
+ * Exposed for testing
+ *
+ * @private
+ * @param  {String} configPath
+ * @return {Object}
+ */
+module.exports._readConfig = function(configPath) {
+  return new ConfigFile(configPath).read();
 };

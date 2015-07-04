@@ -31,6 +31,8 @@
   },
   "devDependencies": {
     "jscs": "~1.13.1",
-    "mocha": "^1.21.4"
+    "mocha": "^1.21.4",
+    "rewire": "~2.3.4",
+    "sinon": "~1.15.4"
   }
 }
