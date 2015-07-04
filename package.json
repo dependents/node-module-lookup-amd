@@ -26,10 +26,11 @@
   },
   "homepage": "https://github.com/mrjoelkemp/node-module-lookup-amd",
   "dependencies": {
-    "commander": "~2.8.1",
+    "commander": "^2.8.1",
     "requirejs-config-file": "~2.0.0"
   },
   "devDependencies": {
+    "jscs": "~1.13.1",
     "mocha": "^1.21.4"
   }
 }
