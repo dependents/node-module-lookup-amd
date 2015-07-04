@@ -20,6 +20,10 @@ module.exports = function(config, depPath, filepath) {
     config = new ConfigFile(config).read();
   }
 
+  if (!config.baseUrl) {
+    config.baseUrl = './';
+  }
+
   if (config.baseUrl[config.baseUrl.length - 1] !== '/') {
     config.baseUrl = config.baseUrl + '/';
   }

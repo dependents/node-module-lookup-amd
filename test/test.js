@@ -38,4 +38,13 @@ describe('lookup', function() {
   it('returns the same dependency if not aliased', function() {
     assert.equal(lookup(configPath, 'my/sweet/path', filename), path.join(dir, 'my/sweet/path'));
   });
+
+  it('does not throw if the baseUrl is missing', function() {
+    var configObject = new ConfigFile(configPath).read();
+    delete configObject.baseUrl;
+
+    assert.doesNotThrow(function() {
+      lookup(configObject, 'foobar', filename);
+    });
+  });
 });
