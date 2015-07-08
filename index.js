@@ -1,6 +1,7 @@
 var ConfigFile = require('requirejs-config-file').ConfigFile;
 var path = require('path');
 var normalize = require('./lib/normalize');
+var debug = require('debug')('lookup');
 
 /**
  * Determines the real path of a potentially aliased dependency path
@@ -15,30 +16,42 @@ var normalize = require('./lib/normalize');
 module.exports = function(config, depPath, filepath) {
   var configPath;
 
+  debug('given config: ', config);
+  debug('given depPath: ', depPath);
+  debug('given filepath: ', filepath);
+
   if (typeof config === 'string') {
     configPath = path.dirname(config);
     config = module.exports._readConfig(config);
+    debug('converting given config file to an object');
   }
 
   if (!config.baseUrl) {
     config.baseUrl = configPath || './';
+    debug('no baseUrl found in config. Defaulting to ' + config.baseUrl);
   }
 
   if (config.baseUrl[config.baseUrl.length - 1] !== '/') {
     config.baseUrl = config.baseUrl + '/';
+    debug('normalized the trailing slash');
   }
-
-  // Uses a plugin loader
-  var exclamationLocation;
-  if ((exclamationLocation = depPath.indexOf('!')) !== -1) {
-    depPath = depPath.slice(exclamationLocation + 1);
-  }
-
-  var normalized = normalize(depPath, filepath || '', config);
 
   var filepathWithoutBase = filepath.split(config.baseUrl)[0];
+  debug('filepath without base ' + filepathWithoutBase);
+
+  // Uses a plugin loader
+  var exclamationLocation = depPath.indexOf('!');
+  if (exclamationLocation !== -1) {
+    debug('stripping off the plugin loader');
+    depPath = depPath.slice(exclamationLocation + 1);
+    debug('depPath is now ' + depPath);
+  }
+
+  var normalized = normalize(depPath, filepath, config);
+  debug('normalized path is ' + normalized);
 
   normalized = path.join(filepathWithoutBase, normalized);
+  debug('joined file base and normalized to ' + normalized);
 
   return normalized;
 };
