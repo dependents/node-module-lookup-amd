@@ -48,6 +48,18 @@ describe('lookup', function() {
     assert.equal(lookup(configPath, 'my/sweet/path', filename), path.join(dir, 'my/sweet/path'));
   });
 
+  it('throws if the config is missing', function() {
+    assert.throws(function() {
+      lookup(undefined, 'foobar', filename);
+    });
+  });
+
+  it('throws if the config is not a string or object', function() {
+    assert.throws(function() {
+      lookup(null, 'foobar', filename);
+    });
+  });
+
   it('does not throw if the baseUrl is missing', function() {
     var configObject = new ConfigFile(configPath).read();
     delete configObject.baseUrl;

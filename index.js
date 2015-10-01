@@ -22,6 +22,10 @@ module.exports = function(config, depPath, filepath, directory) {
   debug('given filepath: ', filepath);
   debug('given directory: ', directory);
 
+  if (typeof config === 'undefined') {
+    throw new Error('requirejs config missing');
+  }
+
   if (typeof config === 'string') {
     configPath = path.dirname(config);
     config = module.exports._readConfig(config);
