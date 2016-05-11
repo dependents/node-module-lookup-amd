@@ -4,7 +4,7 @@
   "description": "Resolve aliased dependency paths using a RequireJS config",
   "main": "index.js",
   "scripts": {
-    "test": "jscs -p airbnb index.js test bin && mocha"
+    "test": "jscs index.js test bin && ./node_modules/.bin/mocha --compilers js:babel/register test/test.js"
   },
   "bin": {
     "lookup-amd": "bin/cli.js"
@@ -31,8 +31,10 @@
     "requirejs-config-file": "~2.0.0"
   },
   "devDependencies": {
-    "jscs": "~1.13.1",
-    "mocha": "^1.21.4",
+    "babel": "~5.8.38",
+    "jscs": "~2.11.0",
+    "jscs-preset-mrjoelkemp": "~1.0.0",
+    "mocha": "~2.4.5",
     "rewire": "~2.3.4",
     "sinon": "~1.15.4"
   }
