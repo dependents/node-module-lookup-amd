@@ -1,6 +1,6 @@
 {
   "name": "module-lookup-amd",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "Resolve aliased dependency paths using a RequireJS config",
   "main": "index.js",
   "scripts": {
