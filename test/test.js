@@ -213,4 +213,22 @@ describe('lookup', function() {
       }), path.join(directory, 'a.js'));
     });
   });
+
+  describe('when config is missing but the directory option is set', function() {
+    it('resolves absolute paths based on directory', function() {
+      assert.equal(lookup({
+        partial: 'subdir/c',
+        filename: `${directory}/subdir/a.js`,
+        directory: directory
+      }), path.join(directory, 'subdir/c.js'));
+    });
+
+    it('resolves relative paths based on filename', function() {
+      assert.equal(lookup({
+        partial: './c',
+        filename: `${directory}/subdir/a.js`,
+        directory: directory
+      }), path.join(directory, 'subdir/c.js'));
+    });
+  });
 });
