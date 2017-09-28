@@ -27,7 +27,7 @@
   "homepage": "https://github.com/mrjoelkemp/node-module-lookup-amd",
   "dependencies": {
     "commander": "^2.8.1",
-    "debug": "~2.2.0",
+    "debug": "^3.1.0",
     "file-exists": "~1.0.0",
     "find": "0.2.6",
     "requirejs": "~2.2.0",
