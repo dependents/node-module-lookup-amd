@@ -31,10 +31,10 @@
   "dependencies": {
     "commander": "^2.8.1",
     "debug": "^3.1.0",
-    "file-exists": "~1.0.0",
-    "find": "0.2.6",
-    "requirejs": "~2.2.0",
-    "requirejs-config-file": "~2.0.0"
+    "file-exists": "^2.0.0",
+    "find": "^0.2.8",
+    "requirejs": "^2.3.5",
+    "requirejs-config-file": "^3.0.0"
   },
   "devDependencies": {
     "babel": "~5.8.38",
