@@ -25,20 +25,23 @@
     "url": "https://github.com/mrjoelkemp/node-module-lookup-amd/issues"
   },
   "homepage": "https://github.com/mrjoelkemp/node-module-lookup-amd",
+  "engines": {
+    "node": ">=4.0.0"
+  },
   "dependencies": {
     "commander": "^2.8.1",
     "debug": "^3.1.0",
-    "file-exists": "~1.0.0",
-    "find": "0.2.6",
-    "requirejs": "~2.2.0",
-    "requirejs-config-file": "~2.0.0"
+    "file-exists": "^2.0.0",
+    "find": "^0.2.8",
+    "requirejs": "^2.3.5",
+    "requirejs-config-file": "^3.0.0"
   },
   "devDependencies": {
     "babel": "~5.8.38",
     "jscs": "~2.11.0",
     "jscs-preset-mrjoelkemp": "~1.0.0",
-    "mocha": "~2.4.5",
-    "rewire": "~2.3.4",
-    "sinon": "~1.15.4"
+    "mocha": "^4.1.0",
+    "rewire": "^3.0.2",
+    "sinon": "^4.1.3"
   }
 }
