@@ -25,6 +25,9 @@
     "url": "https://github.com/mrjoelkemp/node-module-lookup-amd/issues"
   },
   "homepage": "https://github.com/mrjoelkemp/node-module-lookup-amd",
+  "engines": {
+    "node": ">=4.0.0"
+  },
   "dependencies": {
     "commander": "^2.8.1",
     "debug": "^3.1.0",
