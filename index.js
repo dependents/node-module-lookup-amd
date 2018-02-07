@@ -71,7 +71,7 @@ module.exports = function(options) {
 
   depPath = stripLoader(depPath);
 
-  var normalizedModuleId = requirejs.toUrl(depPath);
+  var normalizedModuleId = requirejs.toUrl(depPath + '.js');
 
   var resolved = path.join(resolutionDirectory, normalizedModuleId);
 
