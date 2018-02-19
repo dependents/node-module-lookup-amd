@@ -101,6 +101,29 @@ describe('lookup', function() {
     }), path.join(directory, 'vendor/jquery.js'));
   });
 
+  it('resolves from subdir', function() {
+    assert.equal(lookup({
+      partial: '../c',
+      filename: `${directory}/subdir/subsubdir/a.js`,
+    }), path.join(directory, 'subdir/c.js'));
+  });
+
+  it('resolves from sub subdir', function() {
+    assert.equal(lookup({
+      partial: '../../b',
+      // config,
+      filename: `${directory}/subdir/subsubdir/a.js`,
+    }), path.join(directory, 'b.js'));
+  });
+
+  it('resolves from sub sub sub dir', function() {
+    assert.equal(lookup({
+      partial: '../../../b',
+      // config,
+      filename: `${directory}/subdir/subsubdir/subsubsubdir/a.js`,
+    }), path.join(directory, 'b.js'));
+  });
+
   it('resolves style imports', function() {
     assert.equal(lookup({
       config,
