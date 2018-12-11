@@ -1,3 +1,5 @@
+'use strict';
+
 var ConfigFile = require('requirejs-config-file').ConfigFile;
 var fs = require('fs');
 var path = require('path');

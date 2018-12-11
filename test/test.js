@@ -1,3 +1,5 @@
+'use strict';
+
 var assert = require('assert');
 var path = require('path');
 var ConfigFile = require('requirejs-config-file').ConfigFile;
