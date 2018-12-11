@@ -76,7 +76,7 @@ module.exports = function(options) {
   let normalizedModuleId = requirejs.toUrl(depPath);
   debug('requirejs normalized module id: ' + normalizedModuleId);
 
-  if (normalizedModuleId.indexOf('...') != -1) {
+  if (normalizedModuleId.includes('...')) {
     debug('detected a nested subdirectory resolution that needs to be expanded');
     normalizedModuleId = normalizedModuleId.replace('.../', '../../');
     debug('expanded module id: ' + normalizedModuleId);
