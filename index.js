@@ -86,7 +86,7 @@ module.exports = function(options) {
 
   // No need to search for a file that already has an extension
   // Need to guard against jquery.min being treated as a real file
-  if (path.extname(resolved) && fileExists(resolved)) {
+  if (path.extname(resolved) && fileExists.sync(resolved)) {
     debug(resolved + ' already has an extension and is a real file');
     return resolved;
   }
