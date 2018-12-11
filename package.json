@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "commander": "^2.8.1",
-    "debug": "^3.1.0",
+    "debug": "^4.1.0",
     "file-exists": "^2.0.0",
     "find": "^0.2.8",
     "requirejs": "^2.3.5",
