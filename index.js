@@ -1,12 +1,12 @@
 'use strict';
 
-var ConfigFile = require('requirejs-config-file').ConfigFile;
-var fs = require('fs');
-var path = require('path');
-var debug = require('debug')('lookup');
-var find = require('find');
-var fileExists = require('file-exists');
-var requirejs = require('requirejs');
+const ConfigFile = require('requirejs-config-file').ConfigFile;
+const fs = require('fs');
+const path = require('path');
+const debug = require('debug')('lookup');
+const find = require('find');
+const fileExists = require('file-exists');
+const requirejs = require('requirejs');
 
 /**
  * Determines the real path of a potentially aliased dependency path
@@ -22,10 +22,10 @@ var requirejs = require('requirejs');
  * @return {String}
  */
 module.exports = function(options) {
-  var configPath = options.configPath;
-  var config = options.config || {};
-  var depPath = options.partial;
-  var filename = options.filename;
+  let configPath = options.configPath;
+  let config = options.config || {};
+  let depPath = options.partial;
+  let filename = options.filename;
 
   debug('config: ', config);
   debug('partial: ', depPath);
@@ -48,7 +48,7 @@ module.exports = function(options) {
     debug('set baseUrl to ' + config.baseUrl);
   }
 
-  var resolutionDirectory;
+  let resolutionDirectory;
 
   if (configPath) {
     resolutionDirectory = configPath;
@@ -73,7 +73,7 @@ module.exports = function(options) {
 
   depPath = stripLoader(depPath);
 
-  var normalizedModuleId = requirejs.toUrl(depPath);
+  let normalizedModuleId = requirejs.toUrl(depPath);
   debug('requirejs normalized module id: ' + normalizedModuleId);
 
   if (normalizedModuleId.indexOf('...') != -1) {
@@ -82,7 +82,7 @@ module.exports = function(options) {
     debug('expanded module id: ' + normalizedModuleId);
   }
 
-  var resolved = path.join(resolutionDirectory, normalizedModuleId);
+  const resolved = path.join(resolutionDirectory, normalizedModuleId);
 
   debug('resolved url: ' + resolved);
 
@@ -93,7 +93,7 @@ module.exports = function(options) {
     return resolved;
   }
 
-  var foundFile = findFileLike(normalizedModuleId, resolved) || '';
+  const foundFile = findFileLike(normalizedModuleId, resolved) || '';
 
   if (foundFile) {
     debug('found file like ' + resolved + ': ' + foundFile);
@@ -105,15 +105,15 @@ module.exports = function(options) {
 };
 
 function findFileLike(partial, resolved) {
-  var fileDir = path.dirname(resolved);
+  const fileDir = path.dirname(resolved);
 
-  var pattern = escapeRegExp(resolved + '.');
+  const pattern = escapeRegExp(resolved + '.');
 
   debug('looking for file like ' + pattern);
   debug('within ' + fileDir);
 
   try {
-    var results = find.fileSync(new RegExp(pattern), fileDir);
+    const results = find.fileSync(new RegExp(pattern), fileDir);
 
     debug('found the following matches: ', results.join('\n'));
 
@@ -128,7 +128,7 @@ function findFileLike(partial, resolved) {
 }
 
 function stripLoader(partial) {
-  var exclamationLocation = partial.indexOf('!');
+  const exclamationLocation = partial.indexOf('!');
 
   if (exclamationLocation !== -1) {
     debug('stripping off the plugin loader from ' + partial);
