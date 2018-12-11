@@ -1,6 +1,6 @@
 'use strict';
 
-const ConfigFile = require('requirejs-config-file').ConfigFile;
+const {ConfigFile} = require('requirejs-config-file');
 const fs = require('fs');
 const path = require('path');
 const debug = require('debug')('lookup');
