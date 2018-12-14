@@ -1,14 +1,16 @@
-var assert = require('assert');
-var path = require('path');
-var ConfigFile = require('requirejs-config-file').ConfigFile;
-var rewire = require('rewire');
-var sinon = require('sinon');
+'use strict';
 
-var lookup = rewire('../');
+const assert = require('assert');
+const path = require('path');
+const {ConfigFile} = require('requirejs-config-file');
+const rewire = require('rewire');
+const sinon = require('sinon');
 
-var directory;
-var filename;
-var config;
+const lookup = rewire('../');
+
+let directory;
+let filename;
+let config;
 
 describe('lookup', function() {
   beforeEach(function() {
@@ -34,7 +36,7 @@ describe('lookup', function() {
   });
 
   it('returns the looked up path given a loaded requirejs config object', function() {
-    var configObject = new ConfigFile(config).read();
+    const configObject = new ConfigFile(config).read();
     assert.equal(lookup({
       config: configObject,
       configPath: config,
@@ -133,7 +135,7 @@ describe('lookup', function() {
   });
 
   it('does not throw if the baseUrl is missing', function() {
-    var configObject = new ConfigFile(config).read();
+    const configObject = new ConfigFile(config).read();
     delete configObject.baseUrl;
 
     assert.doesNotThrow(function() {
@@ -147,7 +149,7 @@ describe('lookup', function() {
   });
 
   it('does not throw if config.map is missing', function() {
-    var configObject = new ConfigFile(config).read();
+    const configObject = new ConfigFile(config).read();
     delete configObject.map;
 
     assert.doesNotThrow(function() {
@@ -161,7 +163,7 @@ describe('lookup', function() {
   });
 
   it('does not throw if config.paths is missing', function() {
-    var configObject = new ConfigFile(config).read();
+    const configObject = new ConfigFile(config).read();
     delete configObject.paths;
 
     assert.doesNotThrow(function() {
@@ -187,7 +189,7 @@ describe('lookup', function() {
   describe('when no baseUrl is in the config', function() {
     describe('and a configPath is supplied', function() {
       it('defaults the directory containing the config file', function() {
-        var configObject = new ConfigFile(config).read();
+        const configObject = new ConfigFile(config).read();
         delete configObject.baseUrl;
 
         assert.equal(lookup({
@@ -201,7 +203,7 @@ describe('lookup', function() {
 
     describe('and the configPath was not supplied', function() {
       it('defaults to the directory containing the given file', function() {
-        var configObject = new ConfigFile(config).read();
+        const configObject = new ConfigFile(config).read();
         delete configObject.baseUrl;
 
         assert.equal(lookup({

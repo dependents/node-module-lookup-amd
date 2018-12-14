@@ -2,9 +2,9 @@
 
 'use strict';
 
-var lookup = require('../');
+const lookup = require('../');
 
-var program = require('commander');
+const program = require('commander');
 
 program
   .version(require('../package.json').version)
@@ -14,9 +14,9 @@ program
   .option('-d, --directory <path>', 'directory containing all files')
   .parse(process.argv);
 
-var config = program.config;
-var filename = program.filename;
-var partial = program.args[0];
+const config = program.config;
+const filename = program.filename;
+const partial = program.args[0];
 
 console.log(lookup({
   config: config,
