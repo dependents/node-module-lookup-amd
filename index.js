@@ -18,14 +18,16 @@ const requirejs = require('requirejs');
  * @param  {String} [options.directory] - The directory to use for resolving absolute paths (when no config is used)
  * @param  {String|Object} [options.config] - Pass a loaded config object if you'd like to avoid rereading the config
  * @param  {String|Object} [options.configPath] - The location of the config file used to create the preparsed config object
+ * @param {Object} [options.fileSystem] An alternative filesystem / fs implementation to use for locating files.
  *
  * @return {String}
  */
 module.exports = function(options) {
-  let configPath = options.configPath;
-  let config = options.config || {};
-  let depPath = options.partial;
-  let filename = options.filename;
+  var configPath = options.configPath;
+  var config = options.config || {};
+  var depPath = options.partial;
+  var filename = options.filename;
+  var fileSystem = options.fileSystem || fs;
 
   debug('config: ', config);
   debug('partial: ', depPath);
@@ -33,11 +35,11 @@ module.exports = function(options) {
 
   if (typeof config === 'string') {
     configPath = path.dirname(config);
-    config = module.exports._readConfig(config);
+    config = module.exports._readConfig(config, fileSystem);
     debug('converting given config file ' + configPath + ' to an object:\n', config);
   }
 
-  if (configPath && !fs.statSync(configPath).isDirectory()) {
+  if (configPath && !fileSystem.statSync(configPath).isDirectory()) {
     configPath = path.dirname(configPath);
   }
 
@@ -88,7 +90,9 @@ module.exports = function(options) {
 
   // No need to search for a file that already has an extension
   // Need to guard against jquery.min being treated as a real file
-  if (path.extname(resolved) && fileExists.sync(resolved)) {
+
+  // TODO: The below options will be ignored until file-exists dependency updated to version with merged PR.
+  if (path.extname(resolved) && fileExists.sync(resolved, {fileSystem: fileSystem})) {
     debug(resolved + ' already has an extension and is a real file');
     return resolved;
   }
@@ -148,8 +152,9 @@ function escapeRegExp(str) {
  *
  * @private
  * @param  {String} configPath
+ * @param  {Object} fileSystem api to use.
  * @return {Object}
  */
-module.exports._readConfig = function(configPath) {
-  return new ConfigFile(configPath).read();
+module.exports._readConfig = function(configPath, fileSystem) {
+  return new ConfigFile(configPath, fileSystem).read();
 };
