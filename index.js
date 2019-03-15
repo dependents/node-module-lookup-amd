@@ -97,7 +97,7 @@ module.exports = function(options) {
     return resolved;
   }
 
-  const foundFile = findFileLike(normalizedModuleId, resolved) || '';
+    const foundFile = findFileLike(fileSystem, normalizedModuleId, resolved) || '';
 
   if (foundFile) {
     debug('found file like ' + resolved + ': ' + foundFile);
@@ -108,7 +108,7 @@ module.exports = function(options) {
   return foundFile;
 };
 
-function findFileLike(partial, resolved) {
+function findFileLike(fileSystem, partial, resolved) {
   const fileDir = path.dirname(resolved);
 
   const pattern = escapeRegExp(resolved + '.');
@@ -116,8 +116,10 @@ function findFileLike(partial, resolved) {
   debug('looking for file like ' + pattern);
   debug('within ' + fileDir);
 
-  try {
-    const results = find.fileSync(new RegExp(pattern), fileDir);
+    try {
+              
+    const results = find.use({ fs: fileSystem })
+                        .fileSync(new RegExp(pattern), fileDir); 
 
     debug('found the following matches: ', results.join('\n'));
 
