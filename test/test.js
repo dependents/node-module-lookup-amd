@@ -14,9 +14,9 @@ let config;
 
 describe('lookup', function() {
   beforeEach(function() {
-    directory = __dirname + '/example/js';
-    filename = directory + '/a.js';
-    config = __dirname + '/example/config.json';
+    directory = path.normalize(__dirname + '/example/js');
+    filename = path.normalize(directory + '/a.js');
+    config = path.normalize(__dirname + '/example/config.json');
   });
 
   it('returns the real path of an aliased module given a path to a requirejs config file', function() {
