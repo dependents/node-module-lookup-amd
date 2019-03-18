@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const debug = require('debug')('lookup');
 const find = require('find');
-const fileExists = require('file-exists');
+const fileExists = require('file-exists-dazinatorfork');
 const requirejs = require('requirejs');
 
 /**
@@ -91,7 +91,6 @@ module.exports = function(options) {
   // No need to search for a file that already has an extension
   // Need to guard against jquery.min being treated as a real file
 
-  // TODO: The below options will be ignored until file-exists dependency updated to version with merged PR.
   if (path.extname(resolved) && fileExists.sync(resolved, {fileSystem: fileSystem})) {
     debug(resolved + ' already has an extension and is a real file');
     return resolved;
