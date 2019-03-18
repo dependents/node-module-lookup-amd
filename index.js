@@ -97,7 +97,7 @@ module.exports = function(options) {
     return resolved;
   }
 
-    const foundFile = findFileLike(fileSystem, normalizedModuleId, resolved) || '';
+  const foundFile = findFileLike(fileSystem, normalizedModuleId, resolved) || '';
 
   if (foundFile) {
     debug('found file like ' + resolved + ': ' + foundFile);
@@ -116,11 +116,9 @@ function findFileLike(fileSystem, partial, resolved) {
   debug('looking for file like ' + pattern);
   debug('within ' + fileDir);
 
-    try {
-              
-    const results = find.use({ fs: fileSystem })
-                        .fileSync(new RegExp(pattern), fileDir); 
-
+  try {
+    const results = find.use({fs: fileSystem})
+                        .fileSync(new RegExp(pattern), fileDir);
     debug('found the following matches: ', results.join('\n'));
 
     // Not great if there are multiple matches, but the pattern should be
