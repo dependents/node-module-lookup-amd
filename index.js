@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const debug = require('debug')('lookup');
 const find = require('find');
-const fileExists = require('file-exists');
+const fileExists = require('file-exists-dazinatorfork');
 const requirejs = require('requirejs');
 
 /**
@@ -91,13 +91,12 @@ module.exports = function(options) {
   // No need to search for a file that already has an extension
   // Need to guard against jquery.min being treated as a real file
 
-  // TODO: The below options will be ignored until file-exists dependency updated to version with merged PR.
   if (path.extname(resolved) && fileExists.sync(resolved, {fileSystem: fileSystem})) {
     debug(resolved + ' already has an extension and is a real file');
     return resolved;
   }
 
-  const foundFile = findFileLike(normalizedModuleId, resolved) || '';
+  const foundFile = findFileLike(fileSystem, normalizedModuleId, resolved) || '';
 
   if (foundFile) {
     debug('found file like ' + resolved + ': ' + foundFile);
@@ -108,7 +107,7 @@ module.exports = function(options) {
   return foundFile;
 };
 
-function findFileLike(partial, resolved) {
+function findFileLike(fileSystem, partial, resolved) {
   const fileDir = path.dirname(resolved);
 
   const pattern = escapeRegExp(resolved + '.');
@@ -117,8 +116,8 @@ function findFileLike(partial, resolved) {
   debug('within ' + fileDir);
 
   try {
-    const results = find.fileSync(new RegExp(pattern), fileDir);
-
+    const results = find.use({fs: fileSystem})
+                        .fileSync(new RegExp(pattern), fileDir);
     debug('found the following matches: ', results.join('\n'));
 
     // Not great if there are multiple matches, but the pattern should be
