@@ -5,7 +5,6 @@ const fs = require('fs');
 const path = require('path');
 const debug = require('debug')('lookup');
 const find = require('find');
-const fileExists = require('file-exists-dazinatorfork');
 const requirejs = require('requirejs');
 
 /**
@@ -91,7 +90,7 @@ module.exports = function(options) {
   // No need to search for a file that already has an extension
   // Need to guard against jquery.min being treated as a real file
 
-  if (path.extname(resolved) && fileExists.sync(resolved, {fileSystem: fileSystem})) {
+  if (path.extname(resolved) && fileExists(resolved, fileSystem)) {
     debug(resolved + ' already has an extension and is a real file');
     return resolved;
   }
@@ -127,6 +126,21 @@ function findFileLike(fileSystem, partial, resolved) {
   } catch (e) {
     debug('error when looking for a match: ' + e.message);
     return '';
+  }
+}
+
+function fileExists(filepath = '', fileSystem = fs) {
+  try {
+    return fileSystem.statSync(filepath).isFile();
+  }
+  catch (e) {
+    // Check exception. If ENOENT - no such file or directory ok, file doesn't exist.
+    // Otherwise something else went wrong, we don't have rights to access the file, ...
+    if (e.code != 'ENOENT') {
+      throw e;
+    }
+
+    return false;
   }
 }
 
