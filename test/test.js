@@ -3,10 +3,9 @@
 const assert = require('assert');
 const path = require('path');
 const {ConfigFile} = require('requirejs-config-file');
-const rewire = require('rewire');
 const sinon = require('sinon');
 
-const lookup = rewire('../');
+const lookup = require('../');
 
 let directory;
 let filename;
