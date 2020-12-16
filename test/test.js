@@ -255,4 +255,24 @@ describe('lookup', function() {
       }), path.join(directory, 'subdir/c.js'));
     });
   });
+
+  describe('when run from within the directory, with no config, no directory', function() {
+    const cwd = process.cwd();
+
+    beforeEach(function() {
+      process.chdir(directory);
+    });
+
+    afterEach(function() {
+      process.chdir(cwd);
+    });
+
+    it('resolves correctly when directory is relative and there is multiple similar named files', function() {
+      assert.equal(lookup({
+        partial: 'z',
+        filename: `subdir/b.js`,
+        directory: '.',
+      }), 'z.js');
+    });
+  });
 });
