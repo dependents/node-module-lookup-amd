@@ -26,12 +26,20 @@ describe('lookup', function() {
     }), path.join(directory, 'b.js'));
   });
 
-  it('resolves relative paths about the baseUrl, not the module', function() {
+  it('resolves absolute paths about the baseUrl, not the module', function() {
+    assert.equal(lookup({
+      config,
+      partial: '/c',
+      filename: `${directory}/subdir/a.js`,
+    }), path.join(directory, 'c.js'));
+  });
+
+  it('resolves relative paths with same directory', function() {
     assert.equal(lookup({
       config,
       partial: './c',
       filename: `${directory}/subdir/a.js`,
-    }), path.join(directory, 'c.js'));
+    }), path.join(directory, '/subdir/c.js'));
   });
 
   it('returns the looked up path given a loaded requirejs config object', function() {
@@ -58,13 +66,22 @@ describe('lookup', function() {
       config,
       partial: 'hgn!./templates/a',
       filename
+    }), path.join(directory, 'templates/a.mustache'));
+  });
+
+  it('supports relative plugin loader paths outside baseDir', function() {
+    // templates should path lookup to ../templates
+    assert.equal(lookup({
+      config,
+      partial: 'hgn!../templates/a',
+      filename
     }), path.join(directory, '../templates/a.mustache'));
   });
 
   it('supports plugin loader usage with the full extension', function() {
     assert.equal(lookup({
       config,
-      partial: 'text!./templates/a.mustache',
+      partial: 'text!../templates/a.mustache',
       filename
     }), path.join(directory, '../templates/a.mustache'));
   });

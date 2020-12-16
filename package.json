@@ -31,7 +31,7 @@
   "dependencies": {
     "commander": "^2.8.1",
     "debug": "^4.1.0",
-    "find": "^0.3.0",
+    "glob": "^7.1.6",
     "requirejs": "^2.3.5",
     "requirejs-config-file": "^4.0.0"
   },
