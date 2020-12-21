@@ -4,8 +4,8 @@ const {ConfigFile} = require('requirejs-config-file');
 const fs = require('fs');
 const path = require('path');
 const debug = require('debug')('lookup');
-const find = require('find');
 const requirejs = require('requirejs');
+const glob = require('glob');
 
 /**
  * Determines the real path of a potentially aliased dependency path
@@ -49,32 +49,36 @@ module.exports = function(options) {
     debug('set baseUrl to ' + config.baseUrl);
   }
 
+  let normalizedModuleId = stripLoader(depPath);
+
   let resolutionDirectory;
 
-  if (configPath) {
-    resolutionDirectory = configPath;
-    debug('module resolution directory (based on configPath): ' + resolutionDirectory);
-
-  } else if (options.directory && depPath[0] !== '.') {
-    resolutionDirectory = options.directory;
-    debug('module resolution directory (based on directory): ' + resolutionDirectory);
-
-  } else {
+  if (normalizedModuleId[0] === '.' || (!configPath && !options.directory)) {
     resolutionDirectory = path.dirname(options.filename);
-    debug('module resolution directory (based on filename): ' + resolutionDirectory);
+    debug('module resolution directory (relative): ' + resolutionDirectory);
+  } else {
+    if (configPath) {
+      resolutionDirectory = configPath;
+      debug('module resolution directory (based on configPath): ' + resolutionDirectory);
+    } else if (options.directory) {
+      resolutionDirectory = options.directory;
+      debug('module resolution directory (based on directory): ' + resolutionDirectory);
+    }
+
+    if (config.baseUrl[0] === '/') {
+      debug('baseUrl with a leading slash detected');
+      resolutionDirectory = resolutionDirectory.replace(config.baseUrl, '');
+      debug('new resolution directory: ' + resolutionDirectory);
+    }
+
+    if (normalizedModuleId[0] === '/') {
+      normalizedModuleId = normalizedModuleId.replace(/^\/+/g, '');
+    }
+
+    requirejs.config(config);
+    normalizedModuleId = requirejs.toUrl(normalizedModuleId);
   }
 
-  if (config.baseUrl[0] === '/') {
-    debug('baseUrl with a leading slash detected');
-    resolutionDirectory = resolutionDirectory.replace(config.baseUrl, '');
-    debug('new resolution directory: ' + resolutionDirectory);
-  }
-
-  requirejs.config(config);
-
-  depPath = stripLoader(depPath);
-
-  let normalizedModuleId = requirejs.toUrl(depPath);
   debug('requirejs normalized module id: ' + normalizedModuleId);
 
   if (normalizedModuleId.includes('...')) {
@@ -95,7 +99,7 @@ module.exports = function(options) {
     return resolved;
   }
 
-  const foundFile = findFileLike(fileSystem, normalizedModuleId, resolved) || '';
+  const foundFile = findFileLike(resolved) || '';
 
   if (foundFile) {
     debug('found file like ' + resolved + ': ' + foundFile);
@@ -106,17 +110,14 @@ module.exports = function(options) {
   return foundFile;
 };
 
-function findFileLike(fileSystem, partial, resolved) {
-  const fileDir = path.dirname(resolved);
-
-  const pattern = escapeRegExp(resolved + '.');
+function findFileLike(resolved) {
+  const pattern = resolved + '.*';
 
   debug('looking for file like ' + pattern);
-  debug('within ' + fileDir);
 
   try {
-    const results = find.use({fs: fileSystem})
-                        .fileSync(new RegExp(pattern), fileDir);
+    const results = glob.sync(pattern);
+
     debug('found the following matches: ', results.join('\n'));
 
     // Not great if there are multiple matches, but the pattern should be
@@ -154,10 +155,6 @@ function stripLoader(partial) {
   }
 
   return partial;
-}
-
-function escapeRegExp(str) {
-  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
 }
 
 /**
