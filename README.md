@@ -31,11 +31,11 @@ const realPath = lookup({
 * `config`: the path to your RequireJS configuration file
   * As an optimization, you can provide a pre-parsed config object (the contents of the RequireJS config in object form)
   as `config`. You are then required to provide a `directory` argument which is assumed to be the location where your config would have been.
-* `fileSystem`: An alternative `fs` implementation to use for filesystem interactions. Defaults to node's `fs` implementation if not supplied.
+* `fileSystem`: An alternative `fs` implementation to use for filesystem interactions. Defaults to Node.js's `fs` implementation if not supplied.
 
 ### CLI
 
-Assumes a global `-g` installation*
+Assumes a global `-g` installation
 
 ```sh
 lookup-amd -c path/to/my/config.js -f path/to/file/containing/dependency -d path/containing/all/files my/dependency/name
