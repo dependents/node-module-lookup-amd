@@ -1,8 +1,8 @@
 'use strict';
 
-const fs = require('node:fs');
-const path = require('node:path');
-const { debuglog } = require('node:util');
+const fs = require('fs');
+const path = require('path');
+const { debuglog } = require('util');
 const requirejs = require('requirejs');
 const { ConfigFile } = require('requirejs-config-file');
 const glob = require('glob');
