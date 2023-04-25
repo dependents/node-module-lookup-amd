@@ -2,24 +2,25 @@
 
 'use strict';
 
-const lookup = require('../');
-
 const program = require('commander');
+const lookup = require('../index.js');
+const { version } = require('../package.json');
 
 program
-  .version(require('../package.json').version)
+  .version(version)
   .usage('[options] <path>')
   .option('-c, --config <path>', 'location of a RequireJS config file for AMD')
   .option('-f, --filename <path>', 'file containing the dependency')
   .option('-d, --directory <path>', 'directory containing all files')
-  .parse(process.argv);
+  .parse();
 
-const config = program.config;
-const filename = program.filename;
 const partial = program.args[0];
+const { filename, config } = program.opts();
 
-console.log(lookup({
-  config: config,
-  filename: filename,
-  partial: partial
-}));
+const result = lookup({
+  config,
+  filename,
+  partial
+});
+
+console.log(result);
