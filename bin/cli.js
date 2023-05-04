@@ -4,9 +4,11 @@
 
 const program = require('commander');
 const lookup = require('../index.js');
-const { version } = require('../package.json');
+const { name, description, version } = require('../package.json');
 
 program
+  .name(name)
+  .description(description)
   .version(version)
   .usage('[options] <path>')
   .option('-c, --config <path>', 'location of a RequireJS config file for AMD')
