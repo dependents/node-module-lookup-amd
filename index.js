@@ -68,7 +68,7 @@ module.exports = function(options = {}) {
 
     if (config.baseUrl[0] === '/') {
       debug('baseUrl with a leading slash detected');
-      resolutionDirectory = resolutionDirectory.replace(config.baseUrl, '');
+      resolutionDirectory = resolutionDirectory.replace(/\\/g, '/').replace(config.baseUrl, '');
       debug(`new resolution directory: ${resolutionDirectory}`);
     }
 
