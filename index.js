@@ -30,9 +30,9 @@ module.exports = function(options = {}) {
   const { filename } = options;
   const fileSystem = options.fileSystem || fs;
 
-  debug('config: ', config);
-  debug('partial: ', depPath);
-  debug('filename: ', filename);
+  debug(`config: ${config}`);
+  debug(`partial: ${depPath}`);
+  debug(`filename: ${filename}`);
 
   if (typeof config === 'string') {
     configPath = path.dirname(config);
@@ -44,7 +44,7 @@ module.exports = function(options = {}) {
     configPath = path.dirname(configPath);
   }
 
-  debug('configPath: ', configPath);
+  debug(`configPath: ${configPath}`);
 
   if (!config.baseUrl) {
     config.baseUrl = './';
@@ -94,7 +94,6 @@ module.exports = function(options = {}) {
 
   // No need to search for a file that already has an extension
   // Need to guard against jquery.min being treated as a real file
-
   if (path.extname(resolved) && fileExists(resolved, fileSystem)) {
     debug(`${resolved} already has an extension and is a real file`);
     return resolved;
