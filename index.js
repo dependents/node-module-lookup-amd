@@ -68,12 +68,12 @@ module.exports = function(options = {}) {
 
     if (config.baseUrl[0] === '/') {
       debug('baseUrl with a leading slash detected');
-      resolutionDirectory = resolutionDirectory.replace(/\\/g, '/').replace(config.baseUrl, '');
+      resolutionDirectory = resolutionDirectory.replaceAll('\\', '/').replace(config.baseUrl, '');
       debug(`new resolution directory: ${resolutionDirectory}`);
     }
 
     if (normalizedModuleId[0] === '/') {
-      normalizedModuleId = normalizedModuleId.replace(/^\/+/g, '');
+      normalizedModuleId = normalizedModuleId.replaceAll(/^\/+/g, '');
     }
 
     requirejs.config(config);
