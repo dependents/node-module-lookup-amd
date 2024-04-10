@@ -34,7 +34,7 @@
   },
   "homepage": "https://github.com/dependents/node-module-lookup-amd",
   "engines": {
-    "node": ">=14"
+    "node": ">=18"
   },
   "dependencies": {
     "commander": "^12.0.0",
