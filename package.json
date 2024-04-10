@@ -37,15 +37,15 @@
     "node": ">=14"
   },
   "dependencies": {
-    "commander": "^10.0.1",
+    "commander": "^12.0.0",
     "glob": "^7.2.3",
     "requirejs": "^2.3.6",
     "requirejs-config-file": "^4.0.0"
   },
   "devDependencies": {
-    "c8": "^7.13.0",
-    "mocha": "^10.2.0",
-    "xo": "^0.54.2"
+    "c8": "^9.1.0",
+    "mocha": "^10.4.0",
+    "xo": "^0.58.0"
   },
   "xo": {
     "space": true,
