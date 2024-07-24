@@ -39,7 +39,7 @@
   "dependencies": {
     "commander": "^12.0.0",
     "glob": "^7.2.3",
-    "requirejs": "^2.3.6",
+    "requirejs": "^2.3.7",
     "requirejs-config-file": "^4.0.0"
   },
   "devDependencies": {
