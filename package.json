@@ -43,9 +43,9 @@
     "requirejs-config-file": "^4.0.0"
   },
   "devDependencies": {
-    "c8": "^10.1.2",
-    "mocha": "^10.7.0",
-    "xo": "^0.59.2"
+    "c8": "^10.1.3",
+    "mocha": "^11.1.0",
+    "xo": "^0.60.0"
   },
   "xo": {
     "space": true,
