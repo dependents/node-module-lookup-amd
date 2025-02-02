@@ -94,7 +94,7 @@ module.exports = function(options = {}) {
 
   // No need to search for a file that already has an extension
   // Need to guard against jquery.min being treated as a real file
-  if (path.extname(resolved) && fileExists(resolved)) {
+  if (path.extname(resolved) && fileExists(resolved, fileSystem)) {
     debug(`${resolved} already has an extension and is a real file`);
     return resolved;
   }
@@ -129,9 +129,9 @@ function findFileLike(resolved) {
   }
 }
 
-function fileExists(filepath = '') {
+function fileExists(filepath = '', fileSystem = fs) {
   try {
-    return fs.statSync(filepath).isFile();
+    return fileSystem.statSync(filepath).isFile();
   } catch (error) {
     // Check exception. If ENOENT - no such file or directory ok, file doesn't exist.
     // Otherwise something else went wrong, we don't have rights to access the file, ...
