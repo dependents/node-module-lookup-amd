@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "commander": "^12.1.0",
-    "glob": "^7.2.3",
+    "glob": "^9.0.0",
     "requirejs": "^2.3.7",
     "requirejs-config-file": "^4.0.0"
   },
