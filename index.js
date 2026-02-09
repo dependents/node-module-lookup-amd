@@ -5,7 +5,6 @@ const path = require('path');
 const { debuglog } = require('util');
 const requirejs = require('requirejs');
 const { ConfigFile } = require('requirejs-config-file');
-const glob = require('glob');
 
 const debug = debuglog('lookup');
 
@@ -111,18 +110,23 @@ module.exports = function(options = {}) {
 };
 
 function findFileLike(resolved) {
-  const pattern = `${resolved}.*`;
+  const dir = path.dirname(resolved);
+  const base = path.basename(resolved);
+  const pattern = `${base}.`;
 
-  debug(`looking for file like ${pattern}`);
+  debug(`looking for file like ${resolved}.*`);
 
   try {
-    const results = glob.sync(pattern);
+    const files = fs.readdirSync(dir);
+    const matches = files
+      .filter(file => file.startsWith(pattern))
+      .map(file => path.join(dir, file));
 
-    debug(`found the following matches: ${results.join('\n')}`);
+    debug(`found the following matches: ${matches.join('\n')}`);
 
     // Not great if there are multiple matches, but the pattern should be
     // specific enough to prevent multiple results
-    return results[0];
+    return matches[0];
   } catch (error) {
     debug(`error when looking for a match: ${error.message}`);
     return '';
