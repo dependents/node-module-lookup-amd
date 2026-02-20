@@ -35,7 +35,7 @@ module.exports = function(options = {}) {
 
   if (typeof config === 'string') {
     configPath = path.dirname(config);
-    config = module.exports._readConfig(config, fileSystem);
+    config = new ConfigFile(config, fileSystem).read();
     debug(`converting given config file ${configPath} to an object:\n`, config);
   }
 
@@ -158,15 +158,3 @@ function stripLoader(partial) {
 
   return partial;
 }
-
-/**
- * Exposed for testing
- *
- * @private
- * @param  {String} configPath
- * @param  {Object} fileSystem api to use.
- * @return {Object}
- */
-module.exports._readConfig = function(configPath, fileSystem) {
-  return new ConfigFile(configPath, fileSystem).read();
-};
