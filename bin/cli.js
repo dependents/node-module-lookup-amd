@@ -24,10 +24,6 @@ if (program.args.length === 0) {
 const partial = program.args[0];
 const { filename, config } = program.opts();
 
-const result = lookup({
-  config,
-  filename,
-  partial
-});
+const result = lookup({ config, filename, partial });
 
 console.log(result);
