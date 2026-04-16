@@ -367,15 +367,16 @@ describe('lookup', () => {
       const originalConfig = requireJs.config;
 
       // Mock requirejs.toUrl to return a path with ...
-      requireJs.toUrl = function() {
-        return '.../a';
-      };
+      requireJs.toUrl = () => '.../a';
 
-      requireJs.config = function() {};
+      requireJs.config = () => {};
 
       const expected = path.join(directory, 'a.js');
       const actual = lookup({
-        config: { baseUrl: 'js', paths: {} },
+        config: {
+          baseUrl: 'js',
+          paths: {}
+        },
         configPath: path.join(directory, 'subdir/subsubdir'),
         partial: 'deeplyNested',
         filename: path.join(directory, 'subdir/subsubdir/a.js')
