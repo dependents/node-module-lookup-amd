@@ -8,7 +8,7 @@
 
 This module takes in a partial and *synchronously* gives back its absolute path on the filesystem.
 
-I built this for [Dependents'](https://sublime.wbond.net/packages/Dependents) [jump to dependency](https://github.com/dependents/Dependents#jump-to-a-dependency) feature that lets you click on a module name
+I built this for [Dependents'](https://packagecontrol.io/packages/Dependents) [jump to dependency](https://github.com/dependents/Dependents) feature that lets you click on a module name
 and open the relevant file.
 
 ```sh
