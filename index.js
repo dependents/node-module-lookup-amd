@@ -12,13 +12,13 @@ const debug = debuglog('lookup');
  * Determines the real path of a potentially aliased dependency path
  * via the paths section of a require config
  *
- * @param  {Object} options - Pass a loaded config object if you'd like to avoid rereading the config
+ * @param  {Object} options
  * @param  {String} options.partial - The dependency name
  * @param  {String} options.filename - The file containing the dependency
  * @param  {String} [options.directory] - The directory to use for resolving absolute paths (when no config is used)
- * @param  {String|Object} [options.config] - Pass a loaded config object if you'd like to avoid rereading the config
- * @param  {String|Object} [options.configPath] - The location of the config file used to create the preparsed config object
- * @param  {Object} [options.fileSystem] An alternative filesystem / fs implementation to use for locating files.
+ * @param  {String|Object} [options.config] - Path to a RequireJS config file, or a pre-parsed config object
+ * @param  {String} [options.configPath] - The location of the config file used to determine the module resolution directory
+ * @param  {Object} [options.fileSystem] - An alternative filesystem / fs implementation to use for locating files.
  *
  * @return {String}
  */
@@ -108,6 +108,13 @@ module.exports = function(options = {}) {
   return foundFile;
 };
 
+/**
+ * Finds a file on disk whose name starts with the basename of `resolved` followed by a dot
+ * (e.g. resolves `foo/bar` to `foo/bar.js`)
+ *
+ * @param  {String} resolved - Absolute path without extension
+ * @return {String|undefined} Absolute path of the matched file, or undefined if none found
+ */
 function findFileLike(resolved) {
   const dir = path.dirname(resolved);
   const base = path.basename(resolved);
@@ -132,6 +139,13 @@ function findFileLike(resolved) {
   }
 }
 
+/**
+ * Returns whether a file exists at the given path
+ *
+ * @param  {String} filepath
+ * @param  {Object} fileSystem - fs-compatible implementation
+ * @return {Boolean}
+ */
 function fileExists(filepath = '', fileSystem = fs) {
   try {
     return fileSystem.statSync(filepath).isFile();
@@ -146,6 +160,12 @@ function fileExists(filepath = '', fileSystem = fs) {
   }
 }
 
+/**
+ * Strips the AMD plugin loader prefix from a dependency path (e.g. `text!foo` -> `foo`)
+ *
+ * @param  {String} partial - Dependency path, optionally prefixed with a loader
+ * @return {String} Dependency path without the loader prefix
+ */
 function stripLoader(partial) {
   const exclamationLocation = partial.indexOf('!');
 
