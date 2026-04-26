@@ -25,8 +25,7 @@ const debug = debuglog('lookup');
 module.exports = function(options = {}) {
   let { configPath } = options;
   let config = options.config || {};
-  const depPath = options.partial;
-  const { filename } = options;
+  const { partial: depPath, filename } = options;
   const fileSystem = options.fileSystem || fs;
 
   debug(`config: ${config}`);
