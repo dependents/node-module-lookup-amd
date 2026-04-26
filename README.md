@@ -25,6 +25,7 @@ const realPath = lookup({
   filename: 'file/containing/partial',
   directory: 'path/to/all/js/files', // optional
   config: 'path/to/my/requirejs/config', // optional
+  configPath: 'path/to/config/directory', // optional
   fileSystem: {} // optional
 });
 ```
@@ -34,7 +35,8 @@ const realPath = lookup({
 * `directory`: Used to resolve files if you're not using a requirejs config
 * `config`: the path to your RequireJS configuration file
   * As an optimization, you can provide a pre-parsed config object (the contents of the RequireJS config in object form)
-  as `config`. You are then required to provide a `directory` argument which is assumed to be the location where your config would have been.
+  as `config`. You are then required to provide a `configPath` or `directory` argument which is assumed to be the location where your config would have been.
+* `configPath`: path to the config file (or its directory) used to determine the module resolution directory; inferred automatically when `config` is a string path
 * `fileSystem`: An alternative `fs` implementation to use for filesystem interactions. Defaults to Node.js's `fs` implementation if not supplied.
 
 ## CLI
