@@ -6,7 +6,7 @@ const { debuglog } = require('util');
 const requirejs = require('requirejs');
 const { ConfigFile } = require('requirejs-config-file');
 
-const debug = debuglog('lookup');
+const debug = debuglog('module-lookup-amd');
 
 /**
  * Determines the real path of a potentially aliased dependency path
