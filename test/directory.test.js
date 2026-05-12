@@ -1,10 +1,11 @@
-'use strict';
+import { strict as assert } from 'node:assert';
+import path from 'node:path';
+import process from 'node:process';
+import { fileURLToPath } from 'node:url';
+import { suite } from 'uvu';
+import lookup from '../index.js';
 
-const assert = require('node:assert').strict;
-const path = require('node:path');
-const process = require('node:process');
-const { suite } = require('uvu');
-const lookup = require('../index.js');
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const directory = path.join(__dirname, '/fixtures/js');
 
