@@ -1,10 +1,11 @@
-'use strict';
+import { strict as assert } from 'node:assert';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { ConfigFile } from 'requirejs-config-file';
+import { suite } from 'uvu';
+import lookup from '../index.js';
 
-const assert = require('node:assert').strict;
-const path = require('node:path');
-const { ConfigFile } = require('requirejs-config-file');
-const { suite } = require('uvu');
-const lookup = require('../index.js');
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const directory = path.join(__dirname, '/fixtures/js');
 const filename = path.join(directory, '/a.js');
@@ -242,4 +243,3 @@ test('does not throw if the partial doesn\'t resolve to a file', () => {
 });
 
 test.run();
-

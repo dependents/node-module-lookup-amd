@@ -1,10 +1,8 @@
-'use strict';
-
-const fs = require('node:fs');
-const path = require('node:path');
-const { debuglog } = require('node:util');
-const requirejs = require('requirejs');
-const { ConfigFile } = require('requirejs-config-file');
+import fs from 'node:fs';
+import path from 'node:path';
+import { debuglog } from 'node:util';
+import requirejs from 'requirejs';
+import { ConfigFile } from 'requirejs-config-file';
 
 const debug = debuglog('module-lookup-amd');
 
@@ -22,7 +20,7 @@ const debug = debuglog('module-lookup-amd');
  *
  * @return {String}
  */
-module.exports = function(options = {}) {
+export default function lookup(options = {}) {
   let { configPath } = options;
   let config = options.config || {};
   const { partial: depPath, filename } = options;
@@ -106,7 +104,7 @@ module.exports = function(options = {}) {
   }
 
   return foundFile;
-};
+}
 
 /**
  * Finds a file on disk whose name starts with the basename of `resolved` followed by a dot

@@ -2,7 +2,10 @@
   "name": "module-lookup-amd",
   "version": "9.1.3",
   "description": "Resolve aliased dependency paths using a RequireJS config",
-  "main": "index.js",
+  "type": "module",
+  "exports": {
+    ".": "./index.js"
+  },
   "files": [
     "bin/cli.js",
     "index.js"
@@ -34,7 +37,7 @@
   },
   "homepage": "https://github.com/dependents/node-module-lookup-amd",
   "engines": {
-    "node": ">=20"
+    "node": ">=20.19.0 || >=22.12.0"
   },
   "dependencies": {
     "commander": "^14.0.3",

@@ -17,8 +17,10 @@ npm install module-lookup-amd
 
 ## Usage
 
+### ESM
+
 ```js
-const lookup = require('module-lookup-amd');
+import lookup from 'module-lookup-amd';
 
 const realPath = lookup({
   partial: 'someModule',
@@ -28,6 +30,12 @@ const realPath = lookup({
   configPath: 'path/to/config/directory', // optional
   fileSystem: {} // optional
 });
+```
+
+### CommonJS
+
+```js
+const { default: lookup } = require('module-lookup-amd');
 ```
 
 * `partial`: the dependency that you want to lookup
