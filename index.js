@@ -1,8 +1,8 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
-const { debuglog } = require('util');
+const fs = require('node:fs');
+const path = require('node:path');
+const { debuglog } = require('node:util');
 const requirejs = require('requirejs');
 const { ConfigFile } = require('requirejs-config-file');
 
@@ -133,7 +133,7 @@ function findFileLike(resolved) {
     // Not great if there are multiple matches, but the pattern should be
     // specific enough to prevent multiple results
     return matches[0];
-  } catch (error) {
+  } catch(error) {
     debug(`error when looking for a match: ${error.message}`);
     return '';
   }
@@ -149,7 +149,7 @@ function findFileLike(resolved) {
 function fileExists(filepath = '', fileSystem = fs) {
   try {
     return fileSystem.statSync(filepath).isFile();
-  } catch (error) {
+  } catch(error) {
     // Check exception. If ENOENT - no such file or directory ok, file doesn't exist.
     // Otherwise something else went wrong, we don't have rights to access the file, ...
     if (error.code !== 'ENOENT') {
