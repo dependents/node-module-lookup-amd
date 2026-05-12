@@ -1,8 +1,8 @@
 'use strict';
 
-const assert = require('assert').strict;
-const path = require('path');
-const process = require('process');
+const assert = require('node:assert').strict;
+const path = require('node:path');
+const process = require('node:process');
 const { suite } = require('uvu');
 const lookup = require('../index.js');
 
