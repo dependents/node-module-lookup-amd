@@ -47,7 +47,7 @@ runFromDirectory.after.each(() => {
   process.chdir(savedCwd);
 });
 
-runFromDirectory('resolves correctly when directory is relative and there is multiple similar named files', () => {
+runFromDirectory('resolves correctly when directory is relative and there are multiple similarly named files', () => {
   const expected = 'z.js';
   const actual = lookup({
     partial: 'z',
