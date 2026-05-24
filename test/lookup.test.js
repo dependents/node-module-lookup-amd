@@ -235,4 +235,30 @@ describe('lookup', () => {
       });
     }).not.toThrow();
   });
+
+  it('uses options.fileSystem.readdirSync when searching for the matching extension', () => {
+    const calls = [];
+    const customFs = {
+      statSync() {
+        return {
+          isFile: () => true,
+          isDirectory: () => true
+        };
+      },
+      readdirSync(p) {
+        calls.push(p);
+        return ['phantom.js'];
+      }
+    };
+
+    const actual = lookup({
+      partial: 'phantom',
+      filename: `${directory}/a.js`,
+      directory,
+      fileSystem: customFs
+    });
+
+    expect(calls.length).toBeGreaterThan(0);
+    expect(actual).toBe(path.join(directory, 'phantom.js'));
+  });
 });

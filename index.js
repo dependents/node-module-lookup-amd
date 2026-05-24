@@ -95,7 +95,7 @@ export default function lookup(options = {}) {
     return resolved;
   }
 
-  const foundFile = findFileLike(resolved) || '';
+  const foundFile = findFileLike(resolved, fileSystem) || '';
 
   if (foundFile) {
     debug(`found file like ${resolved}: ${foundFile}`);
@@ -111,9 +111,10 @@ export default function lookup(options = {}) {
  * (e.g. resolves `foo/bar` to `foo/bar.js`)
  *
  * @param  {String} resolved - Absolute path without extension
+ * @param  {Object} [fileSystem] - fs-compatible implementation
  * @return {String|undefined} Absolute path of the matched file, or undefined if none found
  */
-function findFileLike(resolved) {
+function findFileLike(resolved, fileSystem = fs) {
   const dir = path.dirname(resolved);
   const base = path.basename(resolved);
   const pattern = `${base}.`;
@@ -121,7 +122,7 @@ function findFileLike(resolved) {
   debug(`looking for file like ${resolved}.*`);
 
   try {
-    const files = fs.readdirSync(dir);
+    const files = fileSystem.readdirSync(dir);
     const matches = files
       .filter(file => file.startsWith(pattern))
       .map(file => path.join(dir, file));
